@@ -1,0 +1,6 @@
+{
+  "name": "FlowDPI - Anti-Censorship & ByeDPI Commander",
+  "description": "Offline, ad-free DPI bypass suite and ByeDPI command manager with dark mode Material UI, custom command generator, and network profiles.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
