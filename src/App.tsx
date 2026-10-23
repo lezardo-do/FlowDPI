@@ -7,6 +7,7 @@ import { PresetsTab } from './components/PresetsTab';
 import { SplitTunnelingTab } from './components/SplitTunnelingTab';
 import { CliTerminalTab } from './components/CliTerminalTab';
 import { PacketSimulatorModal } from './components/PacketSimulatorModal';
+import { ApkPackagerModal } from './components/ApkPackagerModal';
 import { ByeDpiConfig, TrafficStats, PresetProfile, LogEntry } from './types/byedpi';
 import { getActiveConfig, saveActiveConfig, getAppTheme, saveAppTheme, getSoundEnabled, saveSoundEnabled, saveCustomPresets, getCustomPresets } from './utils/storage';
 import { buildCommandString } from './utils/commandParser';
@@ -20,6 +21,7 @@ export default function App() {
   const [theme, setThemeState] = useState<'dark' | 'amoled' | 'slate' | 'light'>(getAppTheme);
   const [soundEnabled, setSoundEnabledState] = useState<boolean>(getSoundEnabled);
   const [packetModalOpen, setPacketModalOpen] = useState<boolean>(false);
+  const [apkPackagerOpen, setApkPackagerOpen] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const [trafficStats, setTrafficStats] = useState<TrafficStats>({
@@ -218,6 +220,7 @@ export default function App() {
         soundEnabled={soundEnabled}
         setSoundEnabled={setSoundEnabled}
         onOpenPacketSimulator={() => setPacketModalOpen(true)}
+        onOpenApkPackager={() => setApkPackagerOpen(true)}
       />
 
       {/* Main Tab View */}
@@ -233,6 +236,7 @@ export default function App() {
             soundEnabled={soundEnabled}
             onNavigateToBuilder={() => setCurrentTab('builder')}
             onNavigateToPresets={() => setCurrentTab('presets')}
+            onOpenApkPackager={() => setApkPackagerOpen(true)}
           />
         )}
 
@@ -269,6 +273,7 @@ export default function App() {
             logs={logs}
             onClearLogs={() => setLogs([])}
             soundEnabled={soundEnabled}
+            onOpenApkPackager={() => setApkPackagerOpen(true)}
           />
         )}
       </main>
@@ -288,6 +293,14 @@ export default function App() {
         isOpen={packetModalOpen}
         onClose={() => setPacketModalOpen(false)}
         config={config}
+      />
+
+      {/* APK & Local VPN Packager Modal */}
+      <ApkPackagerModal
+        isOpen={apkPackagerOpen}
+        onClose={() => setApkPackagerOpen(false)}
+        config={config}
+        soundEnabled={soundEnabled}
       />
 
       {/* Toast Notification Banner */}

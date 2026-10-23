@@ -11,7 +11,8 @@ import {
   CheckCircle2, 
   FileText, 
   Share2,
-  Code2
+  Code2,
+  Package
 } from 'lucide-react';
 import { ByeDpiConfig, LogEntry } from '../types/byedpi';
 import { buildCommandString, parseCommandString } from '../utils/commandParser';
@@ -25,6 +26,7 @@ interface CliTerminalTabProps {
   logs: LogEntry[];
   onClearLogs: () => void;
   soundEnabled: boolean;
+  onOpenApkPackager?: () => void;
 }
 
 export const CliTerminalTab: React.FC<CliTerminalTabProps> = ({
@@ -34,6 +36,7 @@ export const CliTerminalTab: React.FC<CliTerminalTabProps> = ({
   logs,
   onClearLogs,
   soundEnabled,
+  onOpenApkPackager,
 }) => {
   const [cliInput, setCliInput] = useState(buildCommandString(config));
   const [parseStatus, setParseStatus] = useState<string | null>(null);
@@ -241,13 +244,23 @@ export const CliTerminalTab: React.FC<CliTerminalTabProps> = ({
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+          {onOpenApkPackager && (
+            <button
+              onClick={onOpenApkPackager}
+              className="flex items-center justify-center gap-2 p-3 rounded-2xl bg-teal-500/15 border border-teal-500/30 hover:bg-teal-500/25 text-teal-300 text-xs font-bold transition-colors"
+            >
+              <Package className="w-4 h-4 text-teal-400" />
+              <span>Make APK / Icons</span>
+            </button>
+          )}
+
           <button
             onClick={handleExportJson}
             className="flex items-center justify-center gap-2 p-3 rounded-2xl bg-slate-950/60 border border-slate-800 hover:border-slate-700 text-slate-200 text-xs font-semibold transition-colors"
           >
             {copiedExport ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4 text-teal-400" />}
-            <span>{copiedExport ? 'Copied JSON' : 'Copy Backup JSON'}</span>
+            <span>{copiedExport ? 'Copied JSON' : 'Copy Backup'}</span>
           </button>
 
           <button

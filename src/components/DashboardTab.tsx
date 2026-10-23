@@ -31,6 +31,7 @@ interface DashboardTabProps {
   soundEnabled: boolean;
   onNavigateToBuilder: () => void;
   onNavigateToPresets: () => void;
+  onOpenApkPackager: () => void;
 }
 
 export const DashboardTab: React.FC<DashboardTabProps> = ({
@@ -43,6 +44,7 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
   soundEnabled,
   onNavigateToBuilder,
   onNavigateToPresets,
+  onOpenApkPackager,
 }) => {
   const [copiedCmd, setCopiedCmd] = useState(false);
   const [historyPoints, setHistoryPoints] = useState<number[]>(new Array(24).fill(2));
@@ -329,6 +331,38 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
               <span className="text-xs font-bold text-emerald-300 font-mono">
                 {trafficStats.droppedFakesCount.toLocaleString()}
               </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Card 3: ANDROID APK & LOCAL VPN SUITE */}
+        <div 
+          onClick={onOpenApkPackager}
+          className="p-4 rounded-3xl bg-gradient-to-r from-teal-950/30 via-slate-900/80 to-slate-900/80 border border-teal-500/30 hover:border-teal-500/60 transition-all cursor-pointer group md-elevation-2"
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <img
+                src="/pwa-192x192.png"
+                alt="FlowDPI"
+                className="w-10 h-10 rounded-2xl shadow-md border border-teal-500/40 shrink-0"
+              />
+              <div>
+                <div className="flex items-center gap-2">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200">
+                    Android APK & Local VPN Suite
+                  </h4>
+                  <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-teal-500/20 text-teal-300 border border-teal-500/30">
+                    PWA / APK
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-400 mt-0.5">
+                  1-Click install, download icon packs (192/512px), & export Bubblewrap/TWA APK build setup
+                </p>
+              </div>
+            </div>
+            <div className="p-2 rounded-xl bg-teal-500/10 text-teal-300 group-hover:bg-teal-500/20 transition-colors shrink-0">
+              <Radio className="w-4 h-4 text-teal-400" />
             </div>
           </div>
         </div>

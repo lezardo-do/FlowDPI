@@ -1,5 +1,4 @@
-import React from 'react';
-import { ShieldCheck, Sparkles, Moon, Sun, Volume2, VolumeX, Info, Flame } from 'lucide-react';
+import { ShieldCheck, Sparkles, Moon, Sun, Volume2, VolumeX, Info, Flame, Package } from 'lucide-react';
 import { ByeDpiConfig } from '../types/byedpi';
 
 interface HeaderProps {
@@ -10,6 +9,7 @@ interface HeaderProps {
   soundEnabled: boolean;
   setSoundEnabled: (s: boolean) => void;
   onOpenPacketSimulator: () => void;
+  onOpenApkPackager: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -20,6 +20,7 @@ export const Header: React.FC<HeaderProps> = ({
   soundEnabled,
   setSoundEnabled,
   onOpenPacketSimulator,
+  onOpenApkPackager,
 }) => {
   const cycleTheme = () => {
     const list: ('dark' | 'amoled' | 'slate' | 'light')[] = ['dark', 'amoled', 'slate', 'light'];
@@ -76,16 +77,26 @@ export const Header: React.FC<HeaderProps> = ({
           <span>100% Offline • Zero Ads • No Remote Telemetry</span>
         </div>
 
-        {/* Right: Quick actions (Visualizer, Sound, Theme) */}
+        {/* Right: Quick actions (APK Packager, Visualizer, Sound, Theme) */}
         <div className="flex items-center gap-1 sm:gap-2">
+          {/* APK & Install Button */}
+          <button
+            onClick={onOpenApkPackager}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-teal-500/20 to-cyan-500/20 hover:from-teal-500/30 hover:to-cyan-500/30 text-teal-300 border border-teal-500/40 text-xs font-bold transition-all shadow-sm active:scale-95"
+            title="Make APK or install to Android"
+          >
+            <Package className="w-3.5 h-3.5 text-teal-400" />
+            <span>Install / APK</span>
+          </button>
+
           {/* Packet Inspector Modal Button */}
           <button
             onClick={onOpenPacketSimulator}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-800/60 hover:bg-slate-700/60 text-slate-300 hover:text-teal-300 border border-slate-700/50 text-xs font-medium transition-all"
+            className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-800/60 hover:bg-slate-700/60 text-slate-300 hover:text-teal-300 border border-slate-700/50 text-xs font-medium transition-all"
             title="Inspect how DPI packets are split"
           >
             <Sparkles className="w-3.5 h-3.5 text-teal-400" />
-            <span className="hidden sm:inline">DPI Visualizer</span>
+            <span>Visualizer</span>
           </button>
 
           {/* Haptic sound toggle */}
